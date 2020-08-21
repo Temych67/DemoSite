@@ -1,0 +1,58 @@
+{% load static %}
+  <!--Navbar -->
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar bg-primary">
+  <a class="navbar-brand" href="/">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {% if request.user.is_authenticated %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">Profile 
+        </a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/account">My account</a>
+          {% if request.user.is_admin %}
+           <a class="dropdown-item" href="{% url 'blog:create' %}">Create blog</a>
+           {% endif %}
+          <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+        </div>
+        
+      </div>
+      {% if '/info/' ==  request.path %}
+       <form onsubmit="return executeQuery();">
+            <input type="text" class="form-control" name="q" id="id_q" placeholder="Search for..." >
+        </form>
+        {% endif %}
+      {% else %}
+            </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/register/">Registration</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login/">Log in</a>
+      </li>
+    </ul>
+    {% endif %}
+  </div>
+</nav>
+  <!--/.Navbar -->
+   
+ {% if request.user.is_authenticated %}
+
+<script type="text/javascript">
+  document.getElementById("id_q").value = "{{query}}"
+</script>
+ {% endif %}
+<script>
+  function executeQuery() {
+    var query = document.getElementById('id_q').value;
+    window.location.replace("http://127.0.0.1:8000/info/?q=" + query)
+    // "https://open-api.xyz/?q=" + query;
+    return false
+  }
+</script>

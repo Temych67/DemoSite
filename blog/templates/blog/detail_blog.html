@@ -1,0 +1,78 @@
+{% extends 'mainPage.html' %}
+
+
+{% block content %}
+
+
+<style type="text/css">
+	body {
+   	margin:0;
+	background:#c8c8c8;
+	background:url(https://hdqwalls.com/download/material-design-4k-2048x1152.jpg) fixed;
+	background-size: cover;
+	font:600 16px/18px 'Open Sans',sans-serif;
+	}
+	.font{
+		padding-top: 80px;
+	}
+	.card{
+		max-width: 700px;
+	}
+	.card-body{
+		padding: 20px;
+	}
+	 p {
+    font-family: 'Times New Roman', Times, serif; /* Шрифт с засечками */
+    font-style: normal  ; /* Курсивное начертание */
+   }
+</style>
+<div class="font">
+	<div class="container">
+		<div class="row">	
+			<!-- Blog Post -->
+			<div class="card m-auto">
+				<img class="card-img-top" src="{{blog_post.image.url}}">
+				<div class="card-body mt-2 mb-2">
+				  <h2 class="card-title">{{blog_post.title}}</h2>
+				  <p class="card-text">{{blog_post.body|safe}}</p>
+				  {% if blog_post.author == request.user %}
+				  	<a href="{% url 'blog:edit' blog_post.slug %}" class="btn btn-primary btn-sm">Update</a>
+				  	<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter">Delete</button>	
+				  	{% endif %}		  	
+				  	<a class="btn btn-outline-dark btn-sm" href="{% url 'info' %}" role="button">Back</a>
+				  
+				</div>
+				<div class="card-footer text-muted">
+				  Updated on {{blog_post.date_updated}} by {{blog_post.author}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<form action="" method="POST">{% csrf_token %}
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Do you want to delete the post "{{ blog_post.title}}"?</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	    	<div class="row justify-content-center">
+				<div class="col-md-6">
+					<img class="card-img-top" src="{{blog_post.image.url}}">			
+				</div>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	      	<input class="btn btn-outline-warning" type="submit" value="YES">
+	      	<button class="btn btn-outline-dark" data-dismiss="modal" aria-label="Close">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</form>
+{% endblock content %}

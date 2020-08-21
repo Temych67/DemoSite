@@ -1,0 +1,130 @@
+{% extends 'mainPage.html' %}
+{% load static %}
+{%block title%}Login{%endblock%}
+
+{% block style %}
+  {% include 'snippes/account_change_css.html' %}
+{% endblock %}
+
+{% block content %}
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<div class="col-lg-12">
+    <!-- UI - X Starts -->
+    <div class="ui-67">
+    
+      <!-- Head Starts -->
+      <div class="ui-head bg-lblue">
+        <!-- Details -->
+        <div class="ui-details">
+          <!-- Name -->
+          <h3 id="name-header">{{account_form.initial.username}}</h3>
+          <!-- Designation -->
+            {% if request.user.is_admin %}
+           <h4>Admin Account</h4>
+          {% else %}
+           <h4>Client Account</h4>
+          {% endif %}
+         
+        </div>
+        <!-- Image -->
+        <div class="ui-image">
+          <!-- User Image -->
+          <img src="{{account_form.initial.image.url}}" alt="Profile Picture" class="img-responsive" width="100" height="100">
+        </div>
+      </div>
+      <!-- Head Ends -->
+      
+      <!-- Content Starts -->
+      <div class="ui-content">
+
+        <div class="row">
+          
+          <div class="col-sm-8 col-md-8 col-lg-8 col-lg-offset-2 acc-col">
+            <section>
+              <h3>Contact Information</h3>
+               <form class="ng-pristine ng-valid" role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
+                {% if success_message %}
+                  <p style="color:green; text-align: center;">{{success_message}}</p>
+                {% endif  %}
+
+                {% for field in account_form %}
+                    <p>
+                      {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
+                {% endfor %}
+                {% if account_form.non_field_errors %}
+                  <div style="color: red">
+                    <p>{{account_form.non_field_errors}}</p>
+                  </div>
+                    
+                {% endif %}
+                <div class="row">
+                   <div class="col-sm-4">
+                    <label for="inputName" class="control-label">Username:</label>
+                      <input type="text" name="username" class="form-control"  value="{{account_form.initial.username}}" id="inputName">
+                  </div>               
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <label for="inputEmail3" class="control-label">Email:</label>
+                      <input type="email" name="email" class="form-control" required autofocus value={{account_form.initial.email}} id="inputEmail3">
+                  </div>
+                  
+                </div>
+
+                
+                <input type="file" name="image" id="id_image_file" accept="image/*" onchange="readURL(this)">
+
+                <div class="col-sm-12">
+                  <div class="btn-div">
+                     <button class="btn btn-success pull-right" type="submit">Save changes</button>
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <a class="m-auto" href="{% url 'password_change' %}">Change password</a>
+                </div>
+                </form>   
+            </section>
+          </div>
+          <!-- col-8 -->
+        </div>
+
+      </div>
+      <!-- Content Ends -->
+    </div>
+    <!-- UI - X Ends -->
+</div>
+{% if request.user.is_admin %}
+<div class="container mt-4 p-4">
+  <div class="row">
+    <div class="blog-posts">
+      <h3 class="mb-3 font-weight-normal">Your blog posts:</h3>
+      {% if blog_posts %}
+        <ul class="list-group">
+        {% for post in blog_posts %}
+          <a href="{% url 'blog:detail' post.slug %}" style="text-decoration: none;"><li class="list-group-item">{{post}}</li></a>
+        {% endfor %}
+        </ul>
+      {% else %}
+        <p>You have no blog posts. Create a post <a href="{% url 'blog:create' %}">here</a>.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
+<script type="text/javascript">
+  document.getElementById('id_image_group').onclick = function(event){
+      document.getElementById('id_image_file').click();
+    };
+  function readURL(input){
+    var reader = new FileReader();
+    reader.onload = function (e) {
+            $('#id_image_display')
+                .attr('src', e.target.result)
+        };
+    reader.readAsDataURL(input.files[0]);
+  }
+</script>
+{% endblock %}

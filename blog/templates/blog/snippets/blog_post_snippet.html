@@ -1,0 +1,35 @@
+<section class="main">
+<div class="container mt-4">
+    <h1 class="text-center mb-4 p-4 text-secondary">From The Blog</h1>
+    {% if blog_post %}
+     <div class="row">
+          <div class="card-columns">
+            {% for post in blog_posts %} 
+                 <a href="{% url 'blog:detail' post.slug %}"><div class="card shadow border-0">
+                    <img class="card-img-top" src="{{post.image.url}}" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">{{post.title}}</h5></a>
+                        <p class="card-text">{{post.body|truncatechars:100}}</p>
+                      </div>
+                </div>
+            {% endfor %}
+    
+      
+</div>
+</div>
+   </div>
+   </section>
+{% else %}
+<section class="main">
+<div class="container mt-4">
+	<div class="row">
+		<div class="card m-auto">
+			<div class="card-body mt-2 mb-2">
+				<h2 class="card-title">No results</h2>
+				<p class="card-text">There were no results matching the search: "{{query}}"</p>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+{% endif %}

@@ -1,0 +1,106 @@
+{% extends 'mainPage.html' %}
+{% load static %}
+
+{% block style %}
+	{% include 'snippes/base_css.html' %}
+{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+  a{
+    text-decoration: none;
+  }
+  {% if request.user.username > 'admin' %}
+  svg {
+    font: 6em 'Montserrat';
+  }
+  {% endif %}
+</style>
+
+<!-- demo-title -->
+<div class="container">
+  <div class="row">
+    <svg viewBox="0 0 960 300">
+      <symbol id="s-text">
+        {% if request.user.is_authenticated %}
+        <text text-anchor="middle" x="50%" y="80%">{{request.user.username}}</text>
+        {% else %}
+        <text text-anchor="middle" x="50%" y="80%">Temych67</text>
+        {% endif %}
+      </symbol>
+
+      <g class = "g-ants">
+        <use xlink:href="#s-text" class="text-copy"></use>
+        <use xlink:href="#s-text" class="text-copy"></use>
+        <use xlink:href="#s-text" class="text-copy"></use>
+        <use xlink:href="#s-text" class="text-copy"></use>
+        <use xlink:href="#s-text" class="text-copy"></use>
+      </g>
+    </svg>
+  </div> 
+ </div>
+<!-- </header> -->
+
+<!-- header #3 -->
+<header class="header" id="header3">
+  <div class="left">
+    <div class="caption animated bounceInLeft">
+      <h2 class="title display-3"> Information about this site </h2>
+      <p class="text"> In this page you can read information what you can do but you must be authenticated or you can't see this page </p>
+      <a class="action btn btn-danger" href="/info2" role="button"> click me </a>
+    </div>  
+  </div>
+  
+  <div class="right animated bounceInLeft delay">
+    <img src="{% static 'weather.jpg' %}" alt="" class="img-fluid">
+  </div>
+  <i class="scroll fa fa-angle-double-down"></i>
+</header>
+
+<!-- header #4 -->
+<header class="header" id="header4">
+  <div class="center">
+    <div class="caption">
+      <h2 class="title display-3 animated bounceInLeft"> Subscribe </h2>
+      <p class="text animated bounceInLeft"> You can enter you email and subscribe to subscription and to your email will be send message about successfully subscribe. If message not delivering maybe you already subscribe. </p>
+      <form class="action animated bounceInRight delay" method="post">{% csrf_token %}
+          <input type="Email" class="form-control mr-1" id="email" name = 'email' placeholder="Email">      
+            <button type="submit" class="btn btn-warning"> Send email </button>
+          </form>
+    </div>  
+  </div>
+  <i class="scroll fa fa-angle-double-down" ></i>
+</header>
+
+
+<!-- header #5 -->
+<header class="header" id="header5">
+  <!-- demo only update note -->
+  <p class="update-note">update note :test test , add opacity text</p>
+  
+  <div class="right">
+    <img src="{% static 'messenger.png' %}" alt="" class="img-fluid  animated bounceInLeft">
+  </div>
+  
+  <p class="opacity-text">Soon!</p>
+  
+  <div class="left">  
+    <div class="caption animated bounceInRight">
+      <h2 class="title display-3"> Info page </h2>
+      <p class="text">In this page you can see different posts, team information but you must be authenticated or you can't see this page</p>
+      <a class="action btn btn-light" href="/info" role="button">click me</a>
+    </div>  
+  </div>
+  <i class="scroll fa fa-angle-double-down"></i>
+</header> 
+
+<div class="demo-more d-lg-flex justify-content-around">
+  <p><i class="fa fa-users"></i> link to code of this site <a href="https://github.com/" target="_blank">alpha-ui</a></p>
+  <p><i class="fa fa-gift"></i> another my  <a href="https://github.com/Temych67?tab=repositories" target="_blank">projects</a></p>
+  <p><i class="fa fa-balance-scale"></i> under MIT</p>
+  <p><i class="fa fa-camera-retro"></i> bg-image from <a href="https://www.instagram.com/" target="_blank">stocksnap</a></p>
+</div>
+
+
+{% endblock %}

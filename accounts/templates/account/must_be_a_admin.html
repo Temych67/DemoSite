@@ -1,0 +1,36 @@
+{% extends 'mainPage.html' %}
+
+{% block content %}
+<style type="text/css">
+
+	.padding_top{
+		padding-top: 100px;
+		text-align: center;
+	}
+		body {
+   	margin:0;
+	color:#515254;
+	background:#c8c8c8;
+	background:url(https://hdqwalls.com/download/material-design-4k-2048x1152.jpg) fixed;
+	background-size: cover;
+	font:600 16px/18px 'Open Sans',sans-serif;
+
+}
+ a {
+    color:#f0f7d7 /* Цвет ссылок */
+   }
+
+</style>
+
+<div class="container">
+	<div class="row">
+	<div class="col-lg-12 padding_top">
+		<p class="m-auto">You must be a admin to using this page. </p>
+		<p class="m-auto">
+			<a href="/">Go home page</a>.
+		</p>
+	</div>
+</div>
+</div>
+
+{% endblock content %}
