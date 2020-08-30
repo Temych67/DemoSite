@@ -13,7 +13,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['demotestingsite.herokuapp.com']
 
@@ -53,8 +53,7 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-my_site = Site(domain='demotestingsite.herokuapp.com', name='demotestingsite.herokuapp.com')
-my_site.save()
+
 
 REST_FRAMEWORK = {
 
