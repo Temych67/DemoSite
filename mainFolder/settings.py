@@ -1,5 +1,6 @@
 import os
 import django_heroku
+from django.contrib.sites.models import Site
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -51,6 +52,9 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+
+my_site = Site(domain='demotestingsite.herokuapp.com', name='demotestingsite.herokuapp.com')
+my_site.save()
 
 REST_FRAMEWORK = {
 
